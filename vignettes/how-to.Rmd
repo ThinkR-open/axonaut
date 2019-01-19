@@ -1,0 +1,44 @@
+---
+title: "How to"
+author: "Vincent Guyader"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+```{r include=FALSE}
+library(axonaut)
+library(dplyr)
+options("accountApiKey"="your_api_key")
+```
+
+
+
+```{r}
+get_arrayInvoices() %>% 
+  get_facture_compact() %>% 
+  summarise(sum(HT))
+
+```
+
+```{r}
+get_arrayInvoices() %>% 
+  get_facture_compact() 
+```
+
+
+```{r}
+get_arrayInvoices() %>% 
+  get_facture_detail() 
+```
