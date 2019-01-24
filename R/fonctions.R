@@ -63,8 +63,9 @@ get_facture_detail <- function(arrayInvoices=get_arrayInvoices()){
   arrayInvoices %>%
     map(sur_plusieurs_ligne) %>%
     # map(~.x %>% rename_all(str_replace_all,pattern =  "\\.",replacement = "_dd")) %>%
-    bind_rows() %>% as.tbl()
-
+    bind_rows() %>% 
+    as.tbl() %>% mutate_at(vars(invoiceDate, sentDate, paidDate),lubridate::ymd) %>% 
+  mutate_at(vars(contains("Amount"),unitPrice_p , quantity_p , taxRate_p),thinkr::as_mon_numeric)  
 
 
 
