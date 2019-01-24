@@ -20,7 +20,8 @@ knitr::opts_chunk$set(
 ```{r include=FALSE}
 library(axonaut)
 library(dplyr)
-options("accountApiKey"="your_api_key")
+
+options("accountApiKey"=readLines("~/.Axonaut"))
 ```
 
 
@@ -34,7 +35,7 @@ get_arrayInvoices() %>%
 
 ```{r}
 get_arrayInvoices() %>% 
-  get_facture_compact() 
+  get_facture_compact()  
 ```
 
 

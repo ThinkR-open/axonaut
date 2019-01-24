@@ -31,6 +31,7 @@ get_arrayInvoices <-
 #'
 #' @import purrr
 #' @import dplyr
+#' @importFrom lubridate ymd
 get_facture_compact <- function(arrayInvoices=get_arrayInvoices()){
 
   arrayInvoices %>%
@@ -46,7 +47,9 @@ get_facture_compact <- function(arrayInvoices=get_arrayInvoices()){
            client = company.name,
            HT = preTaxAmount,
            `reste_a_recevoir (TTC)` = outstandingAmount) %>%
-    mutate(HT=as.numeric(HT))
+    mutate_at(vars(HT,`reste_a_recevoir (TTC)`),as.numeric) %>% 
+    mutate_at(vars(invoiceDate ,paidDate),lubridate::ymd) %>% 
+    as.tbl()
 
 }
 
@@ -60,7 +63,7 @@ get_facture_detail <- function(arrayInvoices=get_arrayInvoices()){
   arrayInvoices %>%
     map(sur_plusieurs_ligne) %>%
     # map(~.x %>% rename_all(str_replace_all,pattern =  "\\.",replacement = "_dd")) %>%
-    bind_rows()
+    bind_rows() %>% as.tbl()
 
 
 
@@ -114,6 +117,4 @@ sur_plusieurs_ligne <- function(invoice){
     rep(nrow(products)) %>%
     bind_rows() %>%
     cbind(products)
-
-
 }
