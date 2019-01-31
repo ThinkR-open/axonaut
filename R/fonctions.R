@@ -62,6 +62,7 @@ get_facture_compact <- function(arrayInvoices=get_arrayInvoices()){
 get_facture_detail <- function(arrayInvoices=get_arrayInvoices()){
   arrayInvoices %>%
     map(sur_plusieurs_ligne) %>%
+    map(mutate_if,is.factor,as.character) %>% 
     # map(~.x %>% rename_all(str_replace_all,pattern =  "\\.",replacement = "_dd")) %>%
     bind_rows() %>% 
     as.tbl() %>% mutate_at(vars(invoiceDate, sentDate, paidDate),lubridate::ymd) %>% 
