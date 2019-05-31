@@ -3,9 +3,7 @@
 #' @param accountApiKey 
 #'
 #' @return
-#' @export
 #'
-#' @examples
 get_arrayProjects  <-
     function(accountApiKey = getOption("accountApiKey")) {
       POST(
@@ -48,8 +46,16 @@ get_projects <- function(arrayProjects = get_arrayProjects()){
            # %>% data.frame()
   # arrayProjects%>% 
     # map(~purrr::discard(.x,is.list))
-  arrayProjects %>% map(as.matrix) %>% map(t) %>% map(as.data.frame) %>%
-    map(  ~mutate_all(.x,unlist)) %>% map(~mutate(.x,idCompany = as.character(idCompany))) %>% bind_rows()
+  arrayProjects %>% 
+    map(as.matrix) %>%
+    map(t) %>% 
+    map(as.data.frame) %>%
+    map(~select(.x,-workforces,-parentProject,-projectNature,-sonProjects)) %>% 
+    map(~mutate(.x,projectStatus = projectStatus %>% unlist() %>% .[2] %>% unname())) %>% 
+    # map(  ~mutate_all(.x,~list(unlist(.)))) %>% # ptet pas le faire sur idCompany
+    map(  ~mutate_all(.x,~unlist(.))) %>% # ptet pas le faire sur idCompany
+    map(~mutate(.x,idCompany = as.character(idCompany))) %>%
+    bind_rows()
   
 }
 # 

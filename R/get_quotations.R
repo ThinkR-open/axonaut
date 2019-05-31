@@ -3,7 +3,6 @@
 #'
 #' @param accountApiKey token api
 #'
-#' @export
 #' @import httr
 #' @import purrr
 get_arrayquotations <-

@@ -28,7 +28,10 @@ options("accountApiKey"=readLines("~/.Axonaut"))
 
 ```{r}
 get_arrayInvoices() %>% 
+  get_facture_compact() %>% names()
+get_arrayInvoices() %>% 
   get_facture_compact() %>% 
+  group_by(lubridate::year(invoiceDate)) %>% 
   summarise(sum(HT))
 
 ```
@@ -41,5 +44,5 @@ get_arrayInvoices() %>%
 
 ```{r}
 get_arrayInvoices() %>% 
-  get_facture_detail() 
+  get_facture_detail() %>% View()
 ```
