@@ -6,6 +6,7 @@
 \usage{
 create_project(number, company_name, name = number, commentaire = name,
   company_id = get_company_id(company_name),
+  all_project = get_all_project(userApiKey = userApiKey),
   userApiKey = getOption("userApiKey"))
 }
 \arguments{

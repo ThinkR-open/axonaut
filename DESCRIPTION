@@ -18,7 +18,8 @@ Imports:
     magrittr,
     purrr,
     stringr,
-    thinkr
+    thinkr,
+    glue
 Suggests: 
     knitr,
     rmarkdown
