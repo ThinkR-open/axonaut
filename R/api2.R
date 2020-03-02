@@ -55,6 +55,26 @@ get_all_companies <- function(userApiKey = getOption("userApiKey")){
     get_all(what="companies",userApiKey = userApiKey)
 }
 
+
+#' Title
+#'
+#' @param userApiKey 
+#'
+#' @return
+#' @export
+#'
+get_all_contracts<- function(userApiKey = getOption("userApiKey")){
+  if (is.null(userApiKey)){
+    stop("missing userApiKey")
+  }
+  
+  get_all(what="contracts",userApiKey = userApiKey)
+}
+
+
+
+
+
 #' Title
 #'
 #' @param userApiKey 
