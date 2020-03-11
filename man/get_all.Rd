@@ -4,8 +4,11 @@
 \alias{get_all}
 \title{Title}
 \usage{
-get_all(what, url = glue::glue("https://axonaut.com/api/v2/{what}"),
-  userApiKey = getOption("userApiKey"))
+get_all(
+  what,
+  url = glue::glue("https://axonaut.com/api/v2/{what}"),
+  userApiKey = getOption("userApiKey")
+)
 }
 \arguments{
 \item{what}{}
@@ -13,6 +16,9 @@ get_all(what, url = glue::glue("https://axonaut.com/api/v2/{what}"),
 \item{url}{}
 
 \item{userApiKey}{}
+}
+\value{
+
 }
 \description{
 Title

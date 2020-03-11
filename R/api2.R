@@ -72,7 +72,37 @@ get_all_contracts<- function(userApiKey = getOption("userApiKey")){
 }
 
 
+#' Title
+#'
+#' @param userApiKey 
+#'
+#' @return
+#' @export
+#'
+get_all_quotations<- function(userApiKey = getOption("userApiKey")){
+  if (is.null(userApiKey)){
+    stop("missing userApiKey")
+  }
+  
+  get_all(what="quotations",userApiKey = userApiKey)
+}
 
+
+
+#' Title
+#'
+#' @param userApiKey 
+#'
+#' @return
+#' @export
+#'
+get_all_invoices<- function(userApiKey = getOption("userApiKey")){
+  if (is.null(userApiKey)){
+    stop("missing userApiKey")
+  }
+  
+  get_all(what="invoices",userApiKey = userApiKey)
+}
 
 
 #' Title

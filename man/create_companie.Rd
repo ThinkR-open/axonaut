@@ -4,8 +4,11 @@
 \alias{create_companie}
 \title{Title}
 \usage{
-create_companie(name, all_companies = get_all_companies(userApiKey =
-  userApiKey), userApiKey = getOption("userApiKey"))
+create_companie(
+  name,
+  all_companies = get_all_companies(userApiKey = userApiKey),
+  userApiKey = getOption("userApiKey")
+)
 }
 \arguments{
 \item{name}{}
@@ -13,6 +16,9 @@ create_companie(name, all_companies = get_all_companies(userApiKey =
 \item{all_companies}{}
 
 \item{userApiKey}{}
+}
+\value{
+
 }
 \description{
 Title
