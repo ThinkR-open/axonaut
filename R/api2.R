@@ -15,14 +15,19 @@ get_all <- function(what,url = glue::glue("https://axonaut.com/api/v2/{what}"),u
   if (is.null(userApiKey)){
     stop("missing userApiKey")
   }
-  
+  nb_page <- 1
+  try(
   nb_page <- content(GET(
     url,
     add_headers(
       accept = "application/json",
       userApiKey = userApiKey
     )
-  ))$`error`$pages
+  ))$`error`$pages,silent = TRUE
+  )
+  if (is.null(nb_page)){
+    nb_page <- 1
+  }
   
   tt <-  seq_len(nb_page) %>% 
     map(~
