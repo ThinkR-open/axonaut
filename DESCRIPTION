@@ -1,6 +1,6 @@
 Package: axonaut
 Title: axonaut API
-Version: 0.1.0001
+Version: 0.1.0003
 Authors@R: 
     person(given = "Vincent",
            family = "Guyader",
