@@ -6,10 +6,10 @@
 \usage{
 create_project(
   number,
-  company_name,
+  company_name = NULL,
   name = number,
   commentaire = name,
-  company_id = get_company_id(company_name, userApiKey = userApiKey),
+  company_id = NULL,
   all_project = get_all_project(userApiKey = userApiKey),
   userApiKey = getOption("userApiKey")
 )

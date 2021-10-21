@@ -12,7 +12,7 @@
 #' @import purrr
 get_all <- function(what,url = glue::glue("https://axonaut.com/api/v2/{what}"),userApiKey = getOption("userApiKey")){
   
-  if (is.null(userApiKey)){
+  if (is.null(userApiKey)  || userApiKey == ""){
     stop("missing userApiKey")
   }
   nb_page <- 1
@@ -53,7 +53,7 @@ get_all <- function(what,url = glue::glue("https://axonaut.com/api/v2/{what}"),u
 #' @export
 #'
 get_all_companies <- function(userApiKey = getOption("userApiKey")){
-  if (is.null(userApiKey)){
+  if (is.null(userApiKey)  || userApiKey == ""){
     stop("missing userApiKey")
   }
   
@@ -69,7 +69,7 @@ get_all_companies <- function(userApiKey = getOption("userApiKey")){
 #' @export
 #'
 get_all_contracts<- function(userApiKey = getOption("userApiKey")){
-  if (is.null(userApiKey)){
+  if (is.null(userApiKey)  || userApiKey == ""){
     stop("missing userApiKey")
   }
   
@@ -85,7 +85,7 @@ get_all_contracts<- function(userApiKey = getOption("userApiKey")){
 #' @export
 #'
 get_all_quotations<- function(userApiKey = getOption("userApiKey")){
-  if (is.null(userApiKey)){
+  if (is.null(userApiKey)  || userApiKey == ""){
     stop("missing userApiKey")
   }
   
@@ -102,7 +102,7 @@ get_all_quotations<- function(userApiKey = getOption("userApiKey")){
 #' @export
 #'
 get_all_invoices<- function(userApiKey = getOption("userApiKey")){
-  if (is.null(userApiKey)){
+  if (is.null(userApiKey)  || userApiKey == ""){
     stop("missing userApiKey")
   }
   
@@ -118,8 +118,7 @@ get_all_invoices<- function(userApiKey = getOption("userApiKey")){
 #' @export
 #'
 get_all_project <- function(userApiKey = getOption("userApiKey")){
-
-  if (is.null(userApiKey)){
+  if (is.null(userApiKey)  || userApiKey == ""){
     stop("missing userApiKey")
   }
     get_all(what="projects",userApiKey = userApiKey)  %>%
@@ -138,7 +137,7 @@ get_project_id <- function(number,
   all_project = get_all_project(userApiKey = userApiKey),
   userApiKey = getOption("userApiKey")){
   
-  if (is.null(userApiKey)){
+  if (is.null(userApiKey)  || userApiKey == ""){
     stop("missing userApiKey")
   }
   
@@ -158,7 +157,7 @@ get_company_id <- function(company_name,
                            all_companies =get_all_companies(userApiKey = userApiKey),
                            userApiKey = getOption("userApiKey")){
   
-  if (is.null(userApiKey)){
+  if (is.null(userApiKey)  || userApiKey == ""){
     stop("missing userApiKey")
   }
   
@@ -186,21 +185,36 @@ get_company_id <- function(company_name,
 #' @import httr
 create_project <- function(
   number,
-  company_name,
+  company_name= NULL,
   name = number, 
   commentaire = name,
-  company_id = get_company_id(company_name,userApiKey = userApiKey),
+  company_id = NULL,
   all_project = get_all_project(userApiKey = userApiKey),
   userApiKey = getOption("userApiKey")
 ){
   
-  if (is.null(userApiKey)){
+  if (is.null(userApiKey)  || userApiKey == ""){
     stop("missing userApiKey")
   }
   
-  if (is.null(company_id)){
-    stop("company_id is null")
+  if (is.null(company_id) & is.null(company_name)){
+    return(create_project_without_company(number = number,
+                                          name = name,
+                                          commentaire=commentaire,
+                                          all_project = all_project,
+                                          userApiKey = userApiKey))
   }
+  
+  
+  if (is.null(company_id)){  
+  company_id = get_company_id(company_name,userApiKey = userApiKey)
+  }
+  
+
+  
+
+  
+  
   
   # on va vierie que le projet n'existe pas déja
   if (  exist_project(number = number,all_project = all_project,userApiKey = userApiKey)){
@@ -226,6 +240,42 @@ create_project <- function(
 }
 
 
+
+
+create_project_without_company <- function(
+  number,
+  name = number, 
+  commentaire = name,
+  all_project = get_all_project(userApiKey = userApiKey),
+  userApiKey = getOption("userApiKey")
+){
+  
+  if (is.null(userApiKey)  || userApiKey == ""){
+    stop("missing userApiKey")
+  }
+  
+  if (  exist_project(number = number,all_project = all_project,userApiKey = userApiKey)){
+    message(glue::glue(" le projet {number} exist deja"))
+    return(get_project_id(number = number,all_project =all_project,userApiKey =  userApiKey))
+    
+  }
+  
+  httr::POST(
+    "https://axonaut.com/api/v2/projects",
+    add_headers(
+      accept = "application/json",
+      userApiKey = userApiKey,
+      `Content-Type` = "application/json"
+    ),body = 
+      glue::glue("{  \"number\": \"<number>\",
+    \"name\": \"<name>\",
+    \"comments\": \"<commentaire>\"}"
+                 ,.open ="<",.close=">")) %>% 
+    content()
+  
+}
+
+
 #' Title
 #'
 #' @param name 
@@ -236,12 +286,24 @@ create_project <- function(
 #' @export
 #'
 create_companie <- function(name,
+                            address_street="",
+                            address_zip_code="",
+                            address_city="",
+                            address_country="",
+                            comments="",
                              all_companies =get_all_companies(userApiKey = userApiKey),
                              userApiKey = getOption("userApiKey")){
   
- if (is.null(userApiKey)){
+ if (is.null(userApiKey) || userApiKey == "" ){
    stop("missing userApiKey")
  }
+  
+  
+  if ( is.null(name) || name == ""  ){
+    message("no companie created")
+    return(NULL)
+    
+  }
   
   
    # all_companies %>% 
@@ -260,7 +322,7 @@ create_companie <- function(name,
       userApiKey = userApiKey,
       `Content-Type` = "application/json"
     ),body = 
-      glue::glue("{  \"number\": \"<number>\",
+      glue::glue("{
     \"name\": \"<name>\",
     \"address_street\": \"<address_street>\",
     \"address_zip_code\": \"<address_zip_code>\",
@@ -280,7 +342,7 @@ exist_companie <- function(name,
                            all_companies =get_all_companies(userApiKey = userApiKey),
                            userApiKey = getOption("userApiKey")){
   
-  if (is.null(userApiKey)){
+  if (is.null(userApiKey)  || userApiKey == ""){
     stop("missing userApiKey")
   }
   

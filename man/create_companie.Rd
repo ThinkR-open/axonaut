@@ -6,6 +6,11 @@
 \usage{
 create_companie(
   name,
+  address_street = "",
+  address_zip_code = "",
+  address_city = "",
+  address_country = "",
+  comments = "",
   all_companies = get_all_companies(userApiKey = userApiKey),
   userApiKey = getOption("userApiKey")
 )

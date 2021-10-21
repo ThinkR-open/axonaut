@@ -2,24 +2,21 @@ Package: axonaut
 Title: axonaut API
 Version: 0.1.0003
 Authors@R: 
-    person(given = "Vincent",
-           family = "Guyader",
-           role = c("aut", "cre"),
-           email = "vincent@thinkr.fr")
+    person("Vincent", "Guyader", , "vincent@thinkr.fr", role = c("aut", "cre"))
 Description: Use Axonaut API.
 License: GPL-3
 Depends: 
     R (>= 3.5.0)
 Imports: 
     dplyr,
+    glue,
     httr,
     jsonlite,
     lubridate,
     magrittr,
     purrr,
     stringr,
-    thinkr,
-    glue
+    thinkr
 Suggests: 
     knitr,
     rmarkdown
@@ -27,4 +24,4 @@ VignetteBuilder:
     knitr
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
