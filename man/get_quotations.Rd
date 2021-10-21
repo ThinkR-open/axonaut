@@ -9,6 +9,9 @@ get_quotations(quotations = get_arrayquotations())
 \arguments{
 \item{arrayquotations}{}
 }
+\value{
+
+}
 \description{
 Title
 }

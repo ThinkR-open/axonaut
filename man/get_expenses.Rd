@@ -9,6 +9,9 @@ get_expenses(arrayExpenses = get_arrayExpenses())
 \arguments{
 \item{arrayExpenses}{}
 }
+\value{
+
+}
 \description{
 Title
 }

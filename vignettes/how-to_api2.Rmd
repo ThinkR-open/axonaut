@@ -1,0 +1,58 @@
+---
+title: "How to"
+author: "Vincent Guyader"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+```{r include=FALSE}
+library(axonaut)
+library(dplyr)
+
+options("accountApiKey"=readLines("~/.Axonaut"))
+options("userApiKey"=readLines("~/.Axonaut2"))
+```
+
+
+
+```{r}
+get_all_companies()
+
+```
+
+```{r}
+get_all_project()
+```
+
+
+```{r eval=FALSE}
+create_project(number = nom_du_projet,
+               company_id = create_companie(name = client),
+               # company_name = client,
+               name = description_du_projet)
+```
+
+
+
+```{r}
+get_arrayInvoices() %>% 
+  get_facture_compact()  
+```
+
+
+```{r}
+get_arrayInvoices() %>% 
+  get_facture_detail() %>% View()
+```

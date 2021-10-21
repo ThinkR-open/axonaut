@@ -9,6 +9,9 @@ get_projects(arrayProjects = get_arrayProjects())
 \arguments{
 \item{arrayProjects}{}
 }
+\value{
+
+}
 \description{
 Title
 }

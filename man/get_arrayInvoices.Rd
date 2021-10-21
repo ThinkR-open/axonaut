@@ -4,8 +4,11 @@
 \alias{get_arrayInvoices}
 \title{Title}
 \usage{
-get_arrayInvoices(accountApiKey = getOption("accountApiKey"),
-  startDateTS = 0, endDateTS = 2451915527)
+get_arrayInvoices(
+  accountApiKey = getOption("accountApiKey"),
+  startDateTS = 0,
+  endDateTS = 2451915527
+)
 }
 \arguments{
 \item{accountApiKey}{token api}
