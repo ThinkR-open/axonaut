@@ -7,10 +7,7 @@
 get_projects(arrayProjects = get_arrayProjects())
 }
 \arguments{
-\item{arrayProjects}{}
-}
-\value{
-
+\item{arrayProjects}{arrayProjects}
 }
 \description{
 Title

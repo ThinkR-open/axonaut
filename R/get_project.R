@@ -1,9 +1,8 @@
 #' Title
 #'
-#' @param accountApiKey 
+#' @param accountApiKey accountApiKey 
 #'
-#' @return
-#'
+#' @export
 get_arrayProjects  <-
     function(accountApiKey = getOption("accountApiKey")) {
       POST(
@@ -35,12 +34,10 @@ get_arrayProjects  <-
 # arrayProjects
 #' Title
 #'
-#' @param arrayProjects 
+#' @param arrayProjects arrayProjects 
 #'
-#' @return
 #' @export
 #'
-#' @examples
 get_projects <- function(arrayProjects = get_arrayProjects()){
   # arrayProjects %>% map(~purrr::discard(.x,is.list))
            # %>% data.frame()
