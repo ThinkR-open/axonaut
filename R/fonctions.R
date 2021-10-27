@@ -80,7 +80,7 @@ get_facture_detail <- function(arrayInvoices=get_arrayInvoices()){
 #' @export
 #'
 #' @import purrr
-#' @import jsonlite
+#' @importFrom  jsonlite toJSON fromJSON
 #' @import dplyr
 #' @importFrom stringr str_c
 extract_product_from_an_invoice <- function(invoice){
@@ -103,7 +103,7 @@ extract_product_from_an_invoice <- function(invoice){
 #'
 #' @export
 #' @import purrr
-#' @import jsonlite
+#' @importFrom  jsonlite toJSON fromJSON
 #' @import dplyr
 sur_plusieurs_ligne <- function(invoice){
   products <- invoice %>%
