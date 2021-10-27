@@ -29,7 +29,7 @@ get_arrayExpenses <-
 #'
 #' @return
 #' @export
-#' @import jsonlite
+#' @importFrom  jsonlite toJSON fromJSON
 get_expenses <- function(arrayExpenses = get_arrayExpenses()){
 arrayExpenses %>%
   toJSON() %>%

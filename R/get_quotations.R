@@ -25,7 +25,7 @@ get_arrayquotations <-
 #'
 #' @return
 #' @export
-#' @import jsonlite
+#' @importFrom  purrr map_df  discard
 get_quotations <- function(quotations = get_arrayquotations()){
   
   quotations %>%
