@@ -8,7 +8,7 @@
 #' @return
 #' @export
 #' @import httr 
-#' @import magrittr
+#' @importFrom  magrittr %>% 
 #' @import purrr
 get_all <- function(what,url = glue::glue("https://axonaut.com/api/v2/{what}"),userApiKey = getOption("userApiKey")){
   

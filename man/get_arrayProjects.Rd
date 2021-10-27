@@ -7,10 +7,7 @@
 get_arrayProjects(accountApiKey = getOption("accountApiKey"))
 }
 \arguments{
-\item{accountApiKey}{}
-}
-\value{
-
+\item{accountApiKey}{accountApiKey}
 }
 \description{
 Title
