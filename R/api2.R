@@ -219,7 +219,7 @@ create_project <- function(
   # on va vierie que le projet n'existe pas déja
   if (  exist_project(number = number,all_project = all_project,userApiKey = userApiKey)){
     message(glue::glue(" le projet {number} exist deja"))
-    return(get_project_id(number = number,all_project =all_project,userApiKey =  userApiKey))
+    return(list(id=get_project_id(number = number,all_project =all_project,userApiKey =  userApiKey)))
     
   }
   
