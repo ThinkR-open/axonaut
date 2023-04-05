@@ -11,17 +11,22 @@ get_arrayInvoices <-
   function(accountApiKey = getOption("accountApiKey"),
            startDateTS = 0,
            endDateTS = 2451915527) {
-    POST(
-      "https://axonaut.com/api/post/invoice/list",
-      body = list(
-        "accountApiKey" = accountApiKey,
-        "startDateTS" = startDateTS,
-        "endDateTS " = endDateTS
-      )
-    ) %>% content() %>%
-      pluck("arrayInvoices")
-
+message("deprecated use get_all_invoices instead")
+    stop("deprecated")
   }
+
+# deprecated
+
+
+
+
+
+
+
+
+
+
+
 
 #' Title
 #'
@@ -32,26 +37,33 @@ get_arrayInvoices <-
 #' @import purrr
 #' @import dplyr
 #' @importFrom lubridate ymd
-get_facture_compact <- function(arrayInvoices=get_arrayInvoices()){
+get_facture_compact <- function(invoice=axonaut:::get_all_invoices()){
 
-  arrayInvoices %>%
-  map( unlist ) %>%
-    map(t) %>%
-    map(as_tibble) %>%
-    bind_rows()%>%
-    # outstandingAmount
-  # number	invoiceDate	paidDate	client	HT	FRAIS
+
+  
+  invoice %>% 
+    map_dfr(info_from_invoice) %>% 
     select(number,
-           invoiceDate,
-           paidDate,
-           client = company.name,
-           HT = preTaxAmount,
-           `reste_a_recevoir (TTC)` = outstandingAmount) %>%
+           invoiceDate =date,
+           paidDate=paid_date,
+           client = client,
+           HT = pre_tax_amount,
+           `reste_a_recevoir (TTC)` = outstanding_amount) %>%
     mutate_at(vars(HT,`reste_a_recevoir (TTC)`),as.numeric) %>% 
     mutate_at(vars(invoiceDate ,paidDate),lubridate::ymd) %>% 
     as.tbl()
 
 }
+
+info_from_invoice <- function(inv){
+  
+  inv$client <- inv$company$name
+  base <- inv[c("number","date","paid_date","client" ,"pre_tax_amount","outstanding_amount")]
+  base[sapply(base,is.null)]<-NA
+  data.frame(base)
+}
+
+
 
 #' Title
 #'
@@ -59,19 +71,69 @@ get_facture_compact <- function(arrayInvoices=get_arrayInvoices()){
 #'
 #' @export
 #' @import purrr
-get_facture_detail <- function(arrayInvoices=get_arrayInvoices()){
-  arrayInvoices %>%
-    map(sur_plusieurs_ligne) %>%
-    map(mutate_if,is.factor,as.character) %>% 
-    map(~mutate(.,margin_p=as.numeric(margin_p))) %>% 
-    # map(~.x %>% rename_all(str_replace_all,pattern =  "\\.",replacement = "_dd")) %>%
-    bind_rows() %>% 
-    as.tbl() %>% mutate_at(vars(invoiceDate, sentDate, paidDate),lubridate::ymd) %>% 
+get_facture_detail <- function(invoice=axonaut:::get_all_invoices()){
+  
+  invoice %>% 
+    map_dfr(get_product_info_from_inv) %>% 
+    
+    as.tbl() %>% 
+    
+    mutate_at(vars(invoiceDate, sentDate, paidDate),lubridate::ymd) %>% 
   mutate_at(vars(contains("Amount"),unitPrice_p , quantity_p , taxRate_p),thinkr::as_mon_numeric)  
 
 
 
 }
+
+
+get_product_info_from_inv <- function(inv){
+  
+  
+  inv$company_id <-inv$company$id
+  inv$company_name <- inv$company$name
+  inv$company_is_supplier <- inv$company$is_supplier
+  inv$company_is_prospect <- inv$company$is_prospect
+  inv$company_is_customer <- inv$company$is_customer
+  inv$discounts_amount <-  inv$discounts$amount
+  inv$discounts_amount_with_tax <-  inv$discounts$amount_with_tax
+  inv$discounts_comments <-  inv$discounts$comments
+  
+  socle <- inv[c("id","number","date",
+                 "sent_date","paid_date","pre_tax_amount","tax_amount","total","outstanding_amount",
+                 "company_id","company_name","company_is_supplier","company_is_prospect","company_is_customer","discounts_amount","discounts_amount_with_tax","discounts_comments",
+                 "project_id","public_path")] 
+  
+  socle[sapply(socle,is.null)]<-NA
+  
+  inv$invoice_lines %>%
+    purrr::map_depth(2, ~ifelse(is.null(.x), NA, .x) ) %>% 
+    bind_rows()%>% 
+    mutate(tax_rates     = tax_rates %>% map_dbl("rate")) %>%
+    select(
+      product_code ,
+      "productCodeAndName_p" = product_name,
+      "unitPrice_p" = price,
+      "quantity_p" =   quantity,
+      "taxRate_p"=   tax_rates,
+      "title_p"=  name,
+      "details_p" = details,
+      "taxAmount_p"= total_tax_amount,
+      "pretaxAmount_p" = total_pre_tax_amount,
+      "totalAmount_p" =  total_amount
+    ) %>% bind_cols(data.frame(socle),.) %>%
+    mutate(discounts_comments = as.character(discounts_comments)) %>%
+    rename(
+      
+      invoiceDate = date, 
+      sentDate = sent_date, 
+      paidDate= paid_date
+      
+      
+    )
+  
+  
+}
+
 
 #' Title
 #'

@@ -7,15 +7,8 @@
 #' @import purrr
 get_arrayquotations <-
   function(accountApiKey = getOption("accountApiKey")) {
-    POST(
-      "https://axonaut.com/api/post/quotation/list",
-      body = list(
-        "accountApiKey" = accountApiKey#,
-        # "startDateTS" = startDateTS,
-        # "endDateTS " = endDateTS
-      )
-    ) %>% content()     %>%
-      pluck("quotations")
+    message("deprecated use XXX instead")
+    stop("deprecated")
     
   }
 
