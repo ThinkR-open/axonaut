@@ -36,7 +36,7 @@ get_projects <-  function(userApiKey = getOption("userApiKey")){
           estimatedEnd = estimated_end ,estimatedNbHours =estimated_hours,estimatedCost=estimated_cost ,
           
           estimatedRevenue = estimated_revenue ,actualStartDate=actual_start ,actualEndDate=actual_end ,
-          actualExpensesCost =  actual_consume_products_cost 
+          actualExpensesCost =  actual_expenses_cost 
           ) %>% 
    mutate_at(c("estimatedCost" ,"estimatedRevenue" ,"estimatedNbHours"),thinkr::as_mon_numeric) 
   # 
