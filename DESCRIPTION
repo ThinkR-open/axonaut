@@ -1,6 +1,6 @@
 Package: axonaut
 Title: axonaut API
-Version: 0.1.0004
+Version: 0.1.0005
 Authors@R: 
     person("Vincent", "Guyader", , "vincent@thinkr.fr", role = c("aut", "cre"))
 Description: Use Axonaut API.
