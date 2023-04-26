@@ -11,15 +11,8 @@ get_arrayExpenses <-
   function(accountApiKey = getOption("accountApiKey"),
            startDateTS = 0,
            endDateTS = 2451915527) {
-    POST(
-      "https://axonaut.com/api/post/expense/list",
-      body = list(
-        "accountApiKey" = accountApiKey,
-        "startDateTS" = startDateTS,
-        "endDateTS " = endDateTS
-      )
-    ) %>% content() %>%
-      pluck("arrayExpenses")
+    message("deprecated use XXX instead")
+    stop("deprecated")
     
   }
 

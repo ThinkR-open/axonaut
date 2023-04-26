@@ -22,14 +22,17 @@ library(axonaut)
 library(dplyr)
 
 options("accountApiKey"=readLines("~/.Axonaut"))
+
+suppressWarnings(options("accountApiKey"=readLines("~/.Axonaut")))
+suppressWarnings(options("userApiKey"=readLines("~/.Axonaut2")))
 ```
 
 
 
 ```{r}
-get_arrayInvoices() %>% 
+get_all_invoices() %>% 
   get_facture_compact() %>% names()
-get_arrayInvoices() %>% 
+get_all_invoices() %>% 
   get_facture_compact() %>% 
   group_by(lubridate::year(invoiceDate)) %>% 
   summarise(sum(HT))
@@ -37,12 +40,12 @@ get_arrayInvoices() %>%
 ```
 
 ```{r}
-get_arrayInvoices() %>% 
+get_all_invoices() %>% 
   get_facture_compact()  
 ```
 
 
 ```{r}
-get_arrayInvoices() %>% 
+get_all_invoices() %>% 
   get_facture_detail() %>% View()
 ```
