@@ -312,7 +312,7 @@ create_companie <- function(name,
   
   if (exist_companie(name = name,all_companies = all_companies,userApiKey = userApiKey)){
     message(glue::glue("the companie '{name}' already exist"))
-    return(get_company_id(name,all_companies = all_companies,userApiKey = userApiKey))
+    return(list(id=get_company_id(name,all_companies = all_companies,userApiKey = userApiKey)))
   }
   
   httr::POST(
