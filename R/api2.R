@@ -161,10 +161,14 @@ get_company_id <- function(company_name,
     stop("missing userApiKey")
   }
   
+   # all_companies %>% 
+   #  keep(~.x$name == company_name) %>% 
+   #  map_chr("id") 
+   # 
    all_companies %>% 
-    keep(~.x$name == company_name) %>% 
-    map_chr("id") 
-  
+     keep(~.x$name == company_name) %>% 
+     map("id") %>% 
+     as.character()
 }
 
 
