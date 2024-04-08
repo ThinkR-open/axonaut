@@ -111,6 +111,7 @@ get_product_info_from_inv <- function(inv){
     mutate(tax_rates     = tax_rates %>% map_dbl("rate")) %>%
     select(
       product_code ,
+      "accounting_code" = accounting_code,
       "productCodeAndName_p" = product_name,
       "unitPrice_p" = price,
       "quantity_p" =   quantity,
