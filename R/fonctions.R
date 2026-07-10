@@ -96,7 +96,7 @@ get_product_info_from_inv <- function(inv){
   inv$company_is_customer <- inv$company$is_customer
   inv$discounts_amount <-  inv$discounts$amount
   inv$discounts_amount_with_tax <-  inv$discounts$amount_with_tax
-  inv$discounts_comments <-  inv$discounts$comments
+  inv$discounts_comments <-  inv$discounts$comments %||% ""
   
   socle <- inv[c("id","number","date",
                  "sent_date","paid_date","pre_tax_amount","tax_amount","total","outstanding_amount",
