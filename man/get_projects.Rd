@@ -4,10 +4,10 @@
 \alias{get_projects}
 \title{Title}
 \usage{
-get_projects(arrayProjects = get_arrayProjects())
+get_projects(userApiKey = getOption("userApiKey"))
 }
 \arguments{
-\item{arrayProjects}{arrayProjects}
+\item{userApiKey}{userApiKey}
 }
 \description{
 Title

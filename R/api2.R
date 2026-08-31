@@ -116,6 +116,7 @@ get_all_invoices<- function(userApiKey = getOption("userApiKey")){
 #'
 #' @return
 #' @export
+#' @import tibble as_tibble
 #'
 get_all_project <- function(userApiKey = getOption("userApiKey")){
   if (is.null(userApiKey)  || userApiKey == ""){
@@ -127,7 +128,7 @@ get_all_project <- function(userApiKey = getOption("userApiKey")){
     map(as.character ) %>%
     do.call("rbind",.) %>%
     as.data.frame() %>%
-    as.tbl() %>%
+    tibble::as_tibble() %>%
     set_names(c("id","name","number","company_id"))
   
   

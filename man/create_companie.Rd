@@ -15,16 +15,6 @@ create_companie(
   userApiKey = getOption("userApiKey")
 )
 }
-\arguments{
-\item{name}{}
-
-\item{all_companies}{}
-
-\item{userApiKey}{}
-}
-\value{
-
-}
 \description{
 Title
 }

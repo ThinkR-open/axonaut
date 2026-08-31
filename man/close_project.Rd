@@ -10,16 +10,6 @@ close_project(
   userApiKey = getOption("userApiKey")
 )
 }
-\arguments{
-\item{project_id}{}
-
-\item{actual_end_ts}{}
-
-\item{userApiKey}{}
-}
-\value{
-
-}
 \description{
 Title
 }

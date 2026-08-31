@@ -6,12 +6,6 @@
 \usage{
 get_all_project(userApiKey = getOption("userApiKey"))
 }
-\arguments{
-\item{userApiKey}{}
-}
-\value{
-
-}
 \description{
 Title
 }

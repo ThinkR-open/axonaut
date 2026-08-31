@@ -10,16 +10,6 @@ get_all(
   userApiKey = getOption("userApiKey")
 )
 }
-\arguments{
-\item{what}{}
-
-\item{url}{}
-
-\item{userApiKey}{}
-}
-\value{
-
-}
 \description{
 Title
 }

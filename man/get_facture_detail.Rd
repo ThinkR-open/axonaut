@@ -4,7 +4,7 @@
 \alias{get_facture_detail}
 \title{Title}
 \usage{
-get_facture_detail(arrayInvoices = get_arrayInvoices())
+get_facture_detail(invoice = axonaut:::get_all_invoices())
 }
 \arguments{
 \item{arrayInvoices}{arrayInvoices}

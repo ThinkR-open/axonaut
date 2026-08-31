@@ -14,22 +14,6 @@ create_project(
   userApiKey = getOption("userApiKey")
 )
 }
-\arguments{
-\item{number}{}
-
-\item{company_name}{}
-
-\item{name}{}
-
-\item{commentaire}{}
-
-\item{company_id}{}
-
-\item{userApiKey}{}
-}
-\value{
-
-}
 \description{
 Title
 }

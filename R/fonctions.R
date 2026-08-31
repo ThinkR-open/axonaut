@@ -37,6 +37,7 @@ message("deprecated use get_all_invoices instead")
 #' @import purrr
 #' @import dplyr
 #' @importFrom lubridate ymd
+#' @import tibble as_tibble
 get_facture_compact <- function(invoice=axonaut:::get_all_invoices()){
 
 
@@ -51,7 +52,7 @@ get_facture_compact <- function(invoice=axonaut:::get_all_invoices()){
            `reste_a_recevoir (TTC)` = outstanding_amount) %>%
     mutate_at(vars(HT,`reste_a_recevoir (TTC)`),as.numeric) %>% 
     mutate_at(vars(invoiceDate ,paidDate),lubridate::ymd) %>% 
-    as.tbl()
+    tibble::as_tibble()
 
 }
 
@@ -76,7 +77,7 @@ get_facture_detail <- function(invoice=axonaut:::get_all_invoices()){
   invoice %>% 
     map_dfr(get_product_info_from_inv) %>% 
     
-    as.tbl() %>% 
+    tibble::as_tibble() %>% 
     
     mutate_at(vars(invoiceDate, sentDate, paidDate),lubridate::ymd) %>% 
   mutate_at(vars(contains("Amount"),unitPrice_p , quantity_p , taxRate_p),thinkr::as_mon_numeric)  

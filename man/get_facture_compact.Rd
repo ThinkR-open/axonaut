@@ -4,7 +4,7 @@
 \alias{get_facture_compact}
 \title{Title}
 \usage{
-get_facture_compact(arrayInvoices = get_arrayInvoices())
+get_facture_compact(invoice = axonaut:::get_all_invoices())
 }
 \arguments{
 \item{arrayInvoices}{arrayInvoices}
