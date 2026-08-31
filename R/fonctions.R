@@ -37,7 +37,7 @@ message("deprecated use get_all_invoices instead")
 #' @import purrr
 #' @import dplyr
 #' @importFrom lubridate ymd
-#' @import tibble as_tibble
+#' @importFrom tibble as_tibble
 get_facture_compact <- function(invoice=axonaut:::get_all_invoices()){
 
 

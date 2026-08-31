@@ -20,11 +20,9 @@ export(get_facture_detail)
 export(get_projects)
 export(get_quotations)
 export(sur_plusieurs_ligne)
-import(as_tibble)
 import(dplyr)
 import(httr)
 import(purrr)
-import(tibble)
 importFrom(glue,glue)
 importFrom(httr,PATCH)
 importFrom(jsonlite,
@@ -38,3 +36,4 @@ importFrom(purrr,
   map_df
 )
 importFrom(stringr,str_c)
+importFrom(tibble,as_tibble)

@@ -116,7 +116,7 @@ get_all_invoices<- function(userApiKey = getOption("userApiKey")){
 #'
 #' @return
 #' @export
-#' @import tibble as_tibble
+#' @importFrom tibble as_tibble
 #'
 get_all_project <- function(userApiKey = getOption("userApiKey")){
   if (is.null(userApiKey)  || userApiKey == ""){
